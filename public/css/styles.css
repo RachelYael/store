@@ -1,0 +1,15 @@
+.mt-10 {
+    margin-top: 10 !important;
+  }
+  .p-3 {
+    padding: 10 !important;
+  }
+  
+  body {
+    background-color: #E6E6FA;
+    /* background-image: url('https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?size=626&ext=jpg'); */
+    /* background-image: url('/public/photos/beckground.jpg'); */
+  }
+  h1{
+    /* color: red; */
+  }
