@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    
+    <title>Document</title>
+</head>
+<body>     
+    <div class="formContainer">
+        <h1>Enter Credentials Here:</h1>
+        <input type="email" placeholder="Email here" id="email"><br>
+        <input type="password" placeholder="Password here" id="password">
+        <br><br>
+        <button id="register">Register</button>
+        <button id="login">Login</button>
+    </div>
+    <script id="Main script">
+        var firebaseConfig = {
+            apiKey: "AIzaSyCqlh0Inx6FfT4rr6KhZQSbw4VAWSmGozg",
+            authDomain: "web-cosmetic.firebaseapp.com",
+            projectId: "web-cosmetic",
+            storageBucket: "web-cosmetic.appspot.com",
+            messagingSenderId: "1064931964995",
+            appId: "1:1064931964995:web:f49c960b56eff8f9fcfcf6",
+            measurementId: "G-Q826CPQ94E"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        var email, password;
+        function ready(){
+            email = document.getElementById('email');
+            password = document.getElementById('password');
+        }
+
+        document.getElementById('login').onclick = function (){
+            ready();
+            const promise = auth.signInWithEmailAndPassword(email.value, password.value);
+            promise.catch(e => alert(e.message));
+        }
+
+        document.getElementById('register').onclick = function(){
+            ready();
+            const promise = auth.createUserWithEmailAndPassword(email.value, password.value);
+            promise.catch(e => alert(e.message));
+            alert("Registered Successfully");
+        }
+
+        firebase.auth().onAuthStateChanged((user) => {
+            if(user){
+                var email = user.email;
+                alert("Active user " + email);
+            }else {
+                alert("No Active User Found");
+            }
+        });
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</body>
+</html>
