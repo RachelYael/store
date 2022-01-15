@@ -10,6 +10,44 @@
     /* background-image: url('https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?size=626&ext=jpg'); */
     /* background-image: url('/public/photos/beckground.jpg'); */
   }
+
   h1{
     /* color: red; */
   }
+
+  .btn:hover{
+    background-image:none !important;
+    background-color: royalblue !important;
+    border: royalblue !important;
+    font-weight: bolder !important;
+  }
+
+  a{
+    text-decoration:none
+  }
+
+  .btn{
+    background-color: rgba(124, 174, 224, 0.87);
+    border-color: rgba(124, 174, 224, 0.87);
+  }
+
+  .logout {
+    background-color: rgb(224, 69, 69);
+    border-color: rgb(224, 69, 69);
+  }
+
+  .logout:hover{
+    background-image:none !important;
+    background-color: rgb(36, 168, 36) !important;
+    border: rgb(36, 168, 36) !important;
+    font-weight: bolder !important;
+  }
+
+  .default-bg {
+    background-image: url('./../../images/bg.jpg'); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 500px;
+  }
+
+  

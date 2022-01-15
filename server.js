@@ -6,11 +6,13 @@ const PORT = 3000;
 
 app.use(express.static("public"));
 
+// app.get('/', (req, res) => {
+//     res.sendFile(path.resolve('./main-menu.html'));
+// });
 
 app.get('/', (req, res) => {
     res.sendFile(path.resolve('./login.html'));
 });
-
 
 
 app.listen(PORT, () => {
