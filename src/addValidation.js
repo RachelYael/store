@@ -21,6 +21,16 @@
       }
     });
 });
+
+// $('#addProd').submit(function(event){
+    
+//     if($('#addProd').valid()){
+//         var form = $('#addProd')[0];
+//         var formData = new FormData(form);
+//     }else{
+//         event.preventDefault();
+//     }
+//   });
   
   
   
