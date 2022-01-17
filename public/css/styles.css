@@ -20,6 +20,7 @@
     background-color: royalblue !important;
     border: royalblue !important;
     font-weight: bolder !important;
+    color: white !important; 
   }
 
   a{
@@ -32,15 +33,14 @@
   }
 
   .logout {
-    background-color: rgb(224, 69, 69);
-    border-color: rgb(224, 69, 69);
+    background-color: rgba(153, 143, 143, 0.52);
+    border: rgba(153, 143, 143, 0.52);
   }
 
   .logout:hover{
     background-image:none !important;
-    background-color: rgb(36, 168, 36) !important;
-    border: rgb(36, 168, 36) !important;
-    font-weight: bolder !important;
+    background-color: rgba(206, 81, 97, 0.767) !important;
+    border: rgba(206, 81, 97, 0.767) !important;
   }
 
   .default-bg {
