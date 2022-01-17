@@ -66,7 +66,9 @@
             promise.catch(e => alert(e.message));
         }
 
+        if (window.performance && window.performance.navigation.type === window.performance.navigation.TYPE_BACK_FORWARD) {
+            location.reload();
+        }
     </script>
-    <!-- <script src = server.js></script> -->
 </body>
 </html>
