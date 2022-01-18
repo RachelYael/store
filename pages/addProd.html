@@ -87,8 +87,13 @@
                 Title: title.value,
                 Price: price.value,
                 Stock: stock.value
-            }).then(() => alert("Added product Successfully")).catch(e => alert(e.message));
-        
+            }).then(() => alert("Added product Successfully"),()=>  
+            document.getElementById("title").value='',
+            document.getElementById("title").value='', // i have no idea why it needed this twice to delete
+            document.getElementById("price").value='',
+            document.getElementById("stock").value='' ).catch(e => alert(e.message));
+
+
         }
 
     </script>

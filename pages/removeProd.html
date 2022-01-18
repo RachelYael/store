@@ -77,16 +77,20 @@
                 querySnapshot.forEach((doc) => {
                     if (confirm(`Are you sure you want to delete *${title.value}* product?`)) {
                         db.collection("products").doc(title.value).delete()
-                        .then(() => alert("Product deleted Successfully"))
+                        .then(() => alert("Product deleted Successfully"),()=> document.getElementById("title").value='',document.getElementById("title").value='') // i don know why it need it twice....
                         .catch(e => alert(e.message));
                     } else {
+                        alert("dbg else")
+
                         console.log('Thing was not saved to the database.');
                     }
                 });
             })
             .catch((error) => {
+                alert("dbg catch")
                 console.log("Unsuccessful delte", error);
             });
+
             //alert(`No product with title *${title.value}* was found`)
 
         }
