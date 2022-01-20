@@ -94,17 +94,27 @@
             alert("Stock must be of type integer")
             return;
         }
-        db.collection("products").doc(title.value).update({
-            Title: newtitle.value,
-            Price: price.value,
-            Stock: stock.value
-        }).then(() => alert("Updated product Successfully"),()=>  
-        document.getElementById("title").value='',
-        document.getElementById("title").value='', //idk why it need to be duble to delete the txt
-        document.getElementById("newtitle").value='', 
-        document.getElementById("price").value='',
-        document.getElementById("stock").value='' ).catch(e => alert(e.message));
 
+        var prod = db.collection("products").doc(title.value)
+        // var prod = db.collection("products").where("Title", "==", title.value).get()
+        return prod.update({
+            
+                Title: newtitle.value,
+                Price: price.value,
+                Stock: stock.value
+        })
+        .then(() => {
+            alert("Product Successfully Updated!"),
+            ()=>  
+                document.getElementById("title").value='',
+                document.getElementById("title").value='', //idk why it need to be duble to delete the txt
+                document.getElementById("newtitle").value='', 
+                document.getElementById("price").value='',
+                document.getElementById("stock").value=''
+        })
+        .catch((error) => {
+            alert("Error Updating: ", error);
+        });
         
     }
 
