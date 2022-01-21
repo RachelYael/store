@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Store</title>
+  <title>Search</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,10 +38,10 @@
                 <a class="nav-link text-white" href="removeProd.html">Remove</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white active" href="allProds.html"><b>Store</b></a>
+                <a class="nav-link text-white" href="allProds.html">Store</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="search.html">Search</a>
+                <a class="nav-link text-white active" href="search.html"><b>Search</b></a>
             </li>
           </ul>
     </div>
@@ -51,13 +51,20 @@
 <div class="row">
     <div class="col-md-6 offset-md-3 mt-5">
         <div class="d-flex flex-md-column m-5 text-center">
-            <h1 style="font-size: 45px;"><b>Store Products</b></h1>
+            <h1 style="font-size: 45px;"><b>Search a product</b></h1>
+            <h4 class="mt-3">Please enter the title of the product you'd like to search:</h4>
+            <div class="mt-3 col-md-6 offset-md-3" name="remProd" id="remProd" action="">
+                <input class="form-control border border-secondary fs-4" type="text" placeholder="Title" id="title" name="title">          
+                <div class="d-flex" id="found">
+
+                </div>
+                <button type="submit" class="btn mt-5 fs-5" id="search">Search</button>
+                <button type="submit" class="btn mt-5 fs-5" id="clear">Clear</button>
+            </div>
         </div>
     </div>
 </div>
-<div class="d-flex justify-content-around flex-wrap" id="prodsContainer">
 
-</div>
 
 <script>
     var firebaseConfig = {
@@ -72,15 +79,26 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    db.collection("products").get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            var data = doc.data();
-            console.log(data);
+    let title = document.getElementById('title');
+    let searchFlag = 0;
 
+    document.getElementById('search').onclick = function (req,res){
+        if(title.value == ""){
+            alert("You must enter product name")
+            return;
+        }
+        if(searchFlag == 1){
+            return;
+        }
+        searchFlag = 1;
+        let prodsRef = db.collection('products');
+        let query = prodsRef.where('Title', '==', title.value).get().then(snapshot => {
+            let p = snapshot.docs[0];
+            let data = p.data();
             (($) => {
                 $(document).ready(function () {
-                    const prods = $('#prodsContainer');
-                        prods.append(`<div class="card m-4" style="width: 18rem;">
+                    const prods = $('#found');
+                        prods.append(`<div class="card m-4" id="foundProd" style="width: 18rem;">
                                                     <div class="card-body">
                                                         <h5 class="card-header text-center">${data.Title}</h5>
                                                         <ul class="list-group list-group-flush">
@@ -91,11 +109,22 @@
                                                 </div>`
                         );
 
-                    
+                
                 });
             })(jQuery);
+            
+        })
+        .catch((error) => {
+            alert(`Error Searching\nPlease make sure there is a product name: ${title.value}`, () => document.getElementById("title").value='', document.getElementById("title").value='')
         });
-    });
+
+    }
+
+    document.getElementById('clear').onclick = function (req,res){
+        searchFlag = 0;
+        document.getElementById("title").value='';
+        $("#foundProd").remove();
+    }
 
 </script>
 

@@ -7,12 +7,6 @@
   
   body {
     background-color: #E6E6FA;
-    /* background-image: url('https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?size=626&ext=jpg'); */
-    /* background-image: url('/public/photos/beckground.jpg'); */
-  }
-
-  h1{
-    /* color: red; */
   }
 
   .btn:hover{
@@ -21,6 +15,10 @@
     border: royalblue !important;
     font-weight: bolder !important;
     color: white !important; 
+  }
+
+  .nav-item:hover{
+    text-decoration: underline;
   }
 
   a{
@@ -56,17 +54,12 @@
     height: 500px;
   }
 
-  .error{
-    color: red;
-    font-size: x-large;
-}
-
 .p_logout{
   padding-right: 1cm;
 }
 
-a{
+/* a{
   color: antiquewhite;
-}
+} */
 
   

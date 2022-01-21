@@ -38,6 +38,9 @@
             <li class="nav-item">
                 <a class="nav-link text-white" href="allProds.html">Store</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="search.html">Search</a>
+            </li>
           </ul>
     </div>
   </div>
@@ -47,12 +50,11 @@
     <div class="col-md-6 offset-md-3 mt-5">
         <div class="d-flex flex-md-column m-5 text-center">
             <h1><b>Update Product</b></h1>
-            <h3 class="mt-5">Please enter the title of the product you would like to update</h3>
-            <div class="mt-5 col-md-6 offset-md-3" name="upProd" id="upProd" action="">
-                <input class="form-control border border-secondary fs-4 mt-10 " type="text" placeholder="Title" id="title" name="title"><br>          
-                <input class="form-control border border-secondary fs-4 mt-10 " type="text" placeholder="New Title" id="newtitle" name="newtitle"> <br>         
-                <input class="form-control border border-secondary fs-4 mt-10 " type="text" placeholder="New Price" id="price" name="price">  <br>        
-                <input class="form-control border border-secondary fs-4 mt-10 " type="text" placeholder="New Stock" id="stock" name="stock">          
+            <h4 class="mt-5">Please enter the title of the product you'd like to update:</h4>
+            <div class="mt-4 col-md-6 offset-md-3" name="upProd" id="upProd" action="">
+                <input class="form-control border border-secondary fs-4" type="text" placeholder="Title" id="title" name="title"><br>          
+                <input class="form-control border border-secondary fs-4" type="text" placeholder="New Price" id="price" name="price">  <br>        
+                <input class="form-control border border-secondary fs-4" type="text" placeholder="New Stock" id="stock" name="stock">          
                 <button type="submit" class="btn mt-5 fs-5" id="update">Update</button>
             </div>
         </div>
@@ -73,7 +75,6 @@
     const db = firebase.firestore();
 
     let title = document.getElementById("title");
-    let newTitle =  document.getElementById("newtitle");
     let price = document.getElementById("price");
     let stock = document.getElementById("stock");
 
@@ -82,7 +83,7 @@
             alert("You Must Fill Product Name")
             return
         }
-        if(newtitle.value == "" && price.value == "" && stock.value == ""){
+        if(price.value == "" && stock.value == ""){
             alert("No Updates")
             return;
         }
@@ -96,24 +97,20 @@
         }
 
         var prod = db.collection("products").doc(title.value)
-        // var prod = db.collection("products").where("Title", "==", title.value).get()
         return prod.update({
-            
-                Title: newtitle.value,
                 Price: price.value,
                 Stock: stock.value
         })
         .then(() => {
-            alert("Product Successfully Updated!"),
+            alert("Product Updated Successfully!"),
             ()=>  
                 document.getElementById("title").value='',
                 document.getElementById("title").value='', //idk why it need to be duble to delete the txt
-                document.getElementById("newtitle").value='', 
                 document.getElementById("price").value='',
                 document.getElementById("stock").value=''
         })
         .catch((error) => {
-            alert("Error Updating: ", error);
+            alert("Error Updating ", error);
         });
         
     }

@@ -42,6 +42,9 @@
                   <li class="nav-item">
                       <a class="nav-link text-white" href="allProds.html">Store</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-white" href="search.html">Search</a>
+                </li>
                 </ul>
           </div>
         </div>
@@ -80,7 +83,8 @@
                 alert("You must enter product name")
                 return;
             }
-            let p = db.collection("products").where("Title", "==", title.value)
+
+            let p = db.collection("products").doc(title.value)
             .get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
@@ -89,18 +93,13 @@
                         .then(() => alert("Product deleted Successfully"),()=> document.getElementById("title").value='',document.getElementById("title").value='') // i don know why it need it twice....
                         .catch(e => alert(e.message));
                     } else {
-                        // alert("dbg else")
-
                         console.log('Thing was not saved to the database.');
                     }
                 });
             })
             .catch((error) => {
-                // alert("dbg catch")
-                console.log("Unsuccessful delte", error);
+                alert(`Error Deleting\nPlease make sure there is a product name: ${title.value}`, () => document.getElementById("title").value='', document.getElementById("title").value='')
             });
-
-            //alert(`No product with title *${title.value}* was found`)
 
         }
 
