@@ -18,14 +18,14 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>     
 
     <div class="row mt-5">
-        <div class="col-sm-4 offset-md-4 mx-auto text-center">
+        <div class="col-lg-4 offset-lg-4 mx-auto text-center">
                 <h1><b>Enter Credentials Here</b></h1>
                 <div class="row mt-5 p-5">
                     <input class="form-control" type="email" placeholder="Email here" id="email" >
                     <input class="form-control mt-4" type="password" placeholder="Password here" id="password" >
                 </div>
                 <div class="row  p-5">
-                    <div class="col-sm-4 offset-sm-4">
+                    <div class="col-4 offset-4">
                         <div class="row">
                             <button class="btn fs-4 text-dark" type="submit"  id="login">Login</button>
                         </div>
@@ -37,47 +37,6 @@
         </div><!--coll-->
     </div> <!--row-->
 
-    <script id="Main script">
-        var firebaseConfig = {
-            apiKey: "AIzaSyCqlh0Inx6FfT4rr6KhZQSbw4VAWSmGozg",
-            authDomain: "web-cosmetic.firebaseapp.com",
-            projectId: "web-cosmetic",
-            storageBucket: "web-cosmetic.appspot.com",
-            messagingSenderId: "1064931964995",
-            appId: "1:1064931964995:web:f49c960b56eff8f9fcfcf6",
-            measurementId: "G-Q826CPQ94E"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-
-        var email, password;
-        function ready(){
-            email = document.getElementById('email');
-            password = document.getElementById('password');
-        }
-
-        document.getElementById('login').onclick = function (req,res){
-            ready();
-            const promise = auth.signInWithEmailAndPassword(email.value, password.value);
-            promise.then(() => window.location.assign("./main-menu.html"));
-            promise.catch(e => alert(e.message));
-        }
-
-        document.getElementById('register').onclick = function(){
-            ready();
-            const promise = auth.createUserWithEmailAndPassword(email.value, password.value);
-            promise.then(() => alert("Registered Successfully"));
-            promise.catch(e => alert(e.message));
-        }
-
-        if (window.performance && window.performance.navigation.type === window.performance.navigation.TYPE_BACK_FORWARD) {
-            location.reload();
-        }
-
-        // function preventBack(){window.history.forward();}
-        // setTimeout("preventBack()", 0);
-        // window.onunload=function(){null};
-
-    </script>
+    <script src="scripts/usersHandler.js"></script>
 </body>
 </html>

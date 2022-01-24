@@ -28,7 +28,7 @@
           <div class="collapse navbar-collapse" id="collapsibleNavbar">
               <ul class="navbar-nav mr-auto">
                   <li class="nav-item">
-                      <a class="nav-link text-white" href="./../main-menu.html">Home</a>
+                      <a class="nav-link text-white" href="main-menu.html">Home</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link text-white" href="addProd.html">Add</a>
@@ -63,46 +63,6 @@
             </div>
         </div>
     </div>
-    <script>
-        var firebaseConfig = {
-            apiKey: "AIzaSyCqlh0Inx6FfT4rr6KhZQSbw4VAWSmGozg",
-            authDomain: "web-cosmetic.firebaseapp.com",
-            projectId: "web-cosmetic",
-            storageBucket: "web-cosmetic.appspot.com",
-            messagingSenderId: "1064931964995",
-            appId: "1:1064931964995:web:f49c960b56eff8f9fcfcf6",
-            measurementId: "G-Q826CPQ94E"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-
-        let title = document.getElementById("title");
-
-        document.getElementById('remove').onclick = function (req,res){
-            if(title.value == ""){
-                alert("You must enter product name")
-                return;
-            }
-
-            let p = db.collection("products").doc(title.value)
-            .get()
-            .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    if (confirm(`Are you sure you want to delete *${title.value}* product?`)) {
-                        db.collection("products").doc(title.value).delete()
-                        .then(() => alert("Product deleted Successfully"),()=> document.getElementById("title").value='',document.getElementById("title").value='') // i don know why it need it twice....
-                        .catch(e => alert(e.message));
-                    } else {
-                        console.log('Thing was not saved to the database.');
-                    }
-                });
-            })
-            .catch((error) => {
-                alert(`Error Deleting\nPlease make sure there is a product name: ${title.value}`, () => document.getElementById("title").value='', document.getElementById("title").value='')
-            });
-
-        }
-
-    </script>
+    <script src = "../scripts/storeHandler.js"></script>
 </body>
 </html>
