@@ -60,13 +60,39 @@
                     <button type="button" class="btn m-4 fs-3"><a href="allProds.html" class="text-white">Show me store</a></button>
                 </div>
                 <div class="text-center">
-                    <button type="button" name="logout" id="logout" class="btn logout m-3 fs-5"><a class="text-dark" href="./../login.html">Logout</a></button>
+                    <button type="button" name="logout" id="logout" class="btn logout m-3 fs-5">Logout</button>
                    
                 </div>
         </div>
     </div>
 
-    <script src = "scripts/usersHandler.js"></script>
+    <script >
+        var firebaseConfig = {
+    apiKey: "AIzaSyCqlh0Inx6FfT4rr6KhZQSbw4VAWSmGozg",
+    authDomain: "web-cosmetic.firebaseapp.com",
+    projectId: "web-cosmetic",
+    storageBucket: "web-cosmetic.appspot.com",
+    messagingSenderId: "1064931964995",
+    appId: "1:1064931964995:web:f49c960b56eff8f9fcfcf6",
+    measurementId: "G-Q826CPQ94E"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+const logout = document.querySelector('#logout');
+logout.addEventListener('click',(e)=>{
+    e.preventDefault();
+    auth.signOut().then(()=>{
+        auth.onAuthStateChanged(user=>{
+            console.log(user)
+        })
+        window.location.assign('../login.html');
+    } ).catch((error) => {
+        alert(`Error ` +error)
+    });
+})
+
+    </script>
 
 </body>
 </html>

@@ -9,18 +9,18 @@ var firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
-// auth.onAuthStateChanged(user=>{
-//     console.log(user)
-// })
+auth.onAuthStateChanged(user=>{
+    console.log(user)
+})
 const db = firebase.firestore();
 
 var email, password;
 function ready(){
     email = document.getElementById('email');
     password = document.getElementById('password');
-    // auth.onAuthStateChanged(user=>{
-    //     alert(user)
-    // })
+    auth.onAuthStateChanged(user=>{
+        alert(user)
+    })
 }
 
 document.getElementById('login').onclick = function (req,res){
@@ -41,15 +41,3 @@ document.getElementById('register').onclick = function(){
 //     location.reload();
 // }
 
-const logout = document.querySelector('#logout');
-logout.addEventListener('click',(e)=>{
-    e.preventDefault();
-    auth.signOut().then(()=>{
-        // alert("log out");
-        // window.open('login.html');
-        // window.close('main-menu.html');
-        window.location.assign('login.html');
-    } ).catch((error) => {
-        alert(`Error ` +error)
-    });
-})
