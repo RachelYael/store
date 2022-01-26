@@ -53,7 +53,7 @@
                     <h3>What service would you like to choose?</h3>
                 </div>
                 <div class=" row d-flex flex-xl-column m-5">
-                    <button type="button" class="btn m-4 fs-3" ><a href="addProd.html" class="text-white">Add new product</a></button>
+                    <button type="button" class="btn m-4 fs-3" id="addproduct" ><a href="addProd.html" class="text-white">Add new product</a></button>
                     <button type="button" class="btn m-4 fs-3"><a href="updateProd.html" class="text-white">Update product</a></button>
                     <button type="button" class="btn m-4 fs-3"><a href="removeProd.html" class="text-white">Remove product</a></button>
                     <button type="button" class="btn m-4 fs-3"><a href="search.html" class="text-white">Search product</a></button>
@@ -83,16 +83,17 @@ const logout = document.querySelector('#logout');
 logout.addEventListener('click',(e)=>{
     e.preventDefault();
     auth.signOut().then(()=>{
-        auth.onAuthStateChanged(user=>{
-            console.log(user)
-        })
+        // auth.onAuthStateChanged(user=>{
+        //     console.log(user)
+        // })
         window.location.assign('../login.html');
     } ).catch((error) => {
         alert(`Error ` +error)
     });
 })
 
-    </script>
+
+</script>
 
 </body>
 </html>

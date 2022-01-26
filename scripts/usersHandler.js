@@ -9,18 +9,18 @@ var firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
-auth.onAuthStateChanged(user=>{
-    console.log(user)
-})
+// auth.onAuthStateChanged(user=>{
+//     console.log(user)
+// })
 const db = firebase.firestore();
 
 var email, password;
 function ready(){
     email = document.getElementById('email');
     password = document.getElementById('password');
-    auth.onAuthStateChanged(user=>{
-        alert(user)
-    })
+    // auth.onAuthStateChanged(user=>{
+    //     alert(user)
+    // })
 }
 
 document.getElementById('login').onclick = function (req,res){
@@ -37,7 +37,4 @@ document.getElementById('register').onclick = function(){
     promise.catch(e => alert(e.message));
 }
 
-// if (window.performance && window.performance.navigation.type === window.performance.navigation.TYPE_BACK_FORWARD) {
-//     location.reload();
-// }
 
