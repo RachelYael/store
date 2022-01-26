@@ -79,29 +79,61 @@
         let title = document.getElementById("title");
 
         document.getElementById('remove').onclick = function (req,res){
-            if(title.value == ""){
-                alert("You must enter product name")
-                return;
-            }
-
-            let p = db.collection("products").doc(title.value)
-            .get()
-            .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    if (confirm(`Are you sure you want to delete *${title.value}* product?`)) {
-                        db.collection("products").doc(title.value).delete()
-                        .then(() => alert("Product deleted Successfully"),()=> document.getElementById("title").value='',document.getElementById("title").value='') // i don know why it need it twice....
-                        .catch(e => alert(e.message));
-                    } else {
-                        console.log('Thing was not saved to the database.');
-                    }
-                });
-            })
-            .catch((error) => {
-                alert(`Error Deleting\nPlease make sure there is a product name: ${title.value}`, () => document.getElementById("title").value='', document.getElementById("title").value='')
-            });
-
+        if(title.value == ""){
+            alert("You Must Fill Product Name");
+            return;
         }
+
+        var prod = db.collection("products").doc(title.value).get()
+        // alert(prod)
+        // if(prod.value === undefined){
+        //     alert("No Product Name: "+ title.value);
+        //     document.getElementById("title").value='';
+        //     return;
+        // }
+        if(confirm(`Are you sure you want to delete *${title.value}* product?`)){
+            return prod.delete()
+        .then(() => {
+            alert("Product Delete Successfully!"),
+            ()=>  
+                document.getElementById("title").value='',
+                document.getElementById("title").value='' //idk why it need to be duble to delete the txt
+               
+        })
+        .catch((error) => {
+            alert("Error Delete\n", error);
+        });
+        }
+    
+        
+    }
+
+
+
+        // document.getElementById('remove').onclick = function (req,res){
+        //     if(title.value == ""){
+        //         alert("You must enter product name")
+        //         return;
+        //     }
+
+        //     let p = db.collection("products").doc(title.value)
+        //     .get()
+        //     .then((querySnapshot) => {
+        //         querySnapshot.forEach((doc) => {
+        //             if (confirm(`Are you sure you want to delete *${title.value}* product?`)) {
+        //                 db.collection("products").doc(title.value).delete()
+        //                 .then(() => alert("Product deleted Successfully"),()=> document.getElementById("title").value='',document.getElementById("title").value='') // i don know why it need it twice....
+        //                 .catch(e => alert(e.message));
+        //             } else {
+        //                 console.log('Thing was not saved to the database.');
+        //             }
+        //         });
+        //     })
+        //     .catch((error) => {
+        //         alert(`Error Deleting\nPlease make sure there is a product name: ${title.value}`, () => document.getElementById("title").value='', document.getElementById("title").value='')
+        //     });
+
+        // }
 
     </script>
 </body>
