@@ -11,8 +11,6 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-
-
 document.getElementById('add').onclick = function (req,res){
     let title = document.getElementById("title");
     let price = document.getElementById("price");

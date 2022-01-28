@@ -7,20 +7,14 @@ var firebaseConfig = {
     appId: "1:1064931964995:web:f49c960b56eff8f9fcfcf6",
     measurementId: "G-Q826CPQ94E"
 };
+
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
-// auth.onAuthStateChanged(user=>{
-//     console.log(user)
-// })
-const db = firebase.firestore();
 
 var email, password;
 function ready(){
     email = document.getElementById('email');
     password = document.getElementById('password');
-    // auth.onAuthStateChanged(user=>{
-    //     alert(user)
-    // })
 }
 
 document.getElementById('login').onclick = function (req,res){

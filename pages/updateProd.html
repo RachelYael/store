@@ -96,22 +96,56 @@
             return;
         }
 
-        var prod = db.collection("products").doc(title.value)
-        return prod.update({
-                Price: price.value,
-                Stock: stock.value
-        })
-        .then(() => {
-            alert("Product Updated Successfully!"),
-            ()=>  
-                document.getElementById("title").value='',
-                document.getElementById("title").value='', //idk why it need to be duble to delete the txt
-                document.getElementById("price").value='',
-                document.getElementById("stock").value=''
-        })
-        .catch((error) => {
-            alert("Error Updating ", error);
-        });
+
+        var docRef = db.collection("products").doc(title.value);
+            docRef.get().then(function(doc) {
+                if (doc.exists) {
+                    console.log("Document data:", doc.data());
+                    if (confirm(`Are you sure you want to update changes?`)) {
+                        docRef.update({
+                            Price: price.value,
+                            Stock: stock.value
+                        })
+                        .then(() => {
+                            alert("Product Updated Successfully!"),
+                                document.getElementById("title").value='', 
+                                document.getElementById("price").value='',
+                                document.getElementById("stock").value=''
+                        })
+                        .catch((error) => {
+                            alert("Error Updating ", error);
+                        });
+                    } else {
+                        console.log('Nothing was updated.');
+                        document.getElementById("title").value='',
+                        document.getElementById("price").value='',
+                        document.getElementById("stock").value=''
+                    }
+                } else {  // doc.data() will be undefined in this case
+                    alert(`No product with title ${title.value}!`);
+                    document.getElementById("title").value='',
+                    document.getElementById("price").value='',
+                    document.getElementById("stock").value=''
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+
+
+        // var prod = db.collection("products").doc(title.value)
+        // return prod.update({
+        //         Price: price.value,
+        //         Stock: stock.value
+        // })
+        // .then(() => {
+        //     alert("Product Updated Successfully!"),
+        //         document.getElementById("title").value='', //idk why it need to be duble to delete the txt
+        //         document.getElementById("price").value='',
+        //         document.getElementById("stock").value=''
+        // })
+        // .catch((error) => {
+        //     alert("Error Updating ", error);
+        // });
         
     }
 

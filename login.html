@@ -16,26 +16,23 @@
 </head>
 <body class="default-bg"> 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>     
-
+    
     <div class="row mt-5">
-        <div class="col-lg-4 offset-lg-4 mx-auto text-center">
-                <h1><b>Enter Credentials Here</b></h1>
-                <div class="row mt-5 p-5">
-                    <input class="form-control" type="email" placeholder="Email here" id="email" >
-                    <input class="form-control mt-4" type="password" placeholder="Password here" id="password" >
+        <div class="col-md-6 offset-md-3 mx-auto">
+            <div class="d-flex flex-column m-5 text-center">
+                <h1 style="font-size: 50px;"><b>Enter Credentials Here:</b></h1>
+                <div class="d-flex flex-column mt-5 p-5">
+                    <input class="form-control" type="email" placeholder="Email here" id="email" style="font-size: 25px;">
+                    <input class="form-control mt-4" type="password" placeholder="Password here" id="password" style="font-size: 25px;">
                 </div>
-                <div class="row  p-5">
-                    <div class="col-4 offset-4">
-                        <div class="row">
-                            <button class="btn fs-4 text-dark" type="submit"  id="login">Login</button>
-                        </div>
-                        <div class ="row">
-                            <button class="btn mt-4 fs-4 text-dark" type="submit" id="register">Register</button>
-                        </div>
-                    </div>
+                <div class="d-flex flex-column mt-4 mx-auto">
+                    <button class="btn fs-4 text-dark" type="submit"  id="login">Login</button>
+                    <button class="btn mt-4 fs-4 text-dark" type="submit" id="register">Register</button>
                 </div>
-        </div><!--coll-->
-    </div> <!--row-->
+            </div>
+
+        </div>
+    </div>
 
     <script src="scripts/usersHandler.js"></script>
 </body>

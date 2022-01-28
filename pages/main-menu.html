@@ -15,38 +15,59 @@
     
 </head>
 <body class="default-bg">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark" >
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" href="#">My Store</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link text-white" href="#"><b>Home</b></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="addProd.html">Add</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="updateProd.html">Update</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="removeProd.html">Remove</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="allProds.html">Store</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="search.html">Search</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+            
 
-            <nav class="navbar navbar-expand-lg bg-dark" >
-                <div class="container-fluid">
-                    <a class="navbar-brand text-white" href="#">My Store</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-                      <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link text-white" href="#"><b>Home</b></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="addProd.html">Add</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="updateProd.html">Update</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="removeProd.html">Remove</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="allProds.html">Store</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="search.html">Search</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-              </nav>
     <div class="row mx-auto">
+        <div class="col-md-6 offset-md-3">
+            <div class="d-flex flex-column text-center">
+                <div class="d-flex flex-column m-5 text-center">
+                    <h1><b>Let's Start....</b></h1>
+                    <h3>What service would you like to choose?</h3>
+                </div>
+                <div class="d-flex flex-column m-5">
+                    <button type="button" class="btn m-4 fs-3" id="addproduct" ><a href="addProd.html" class="text-white">Add new product</a></button>
+                    <button type="button" class="btn m-4 fs-3"><a href="updateProd.html" class="text-white">Update product</a></button>
+                    <button type="button" class="btn m-4 fs-3"><a href="removeProd.html" class="text-white">Remove product</a></button>
+                    <button type="button" class="btn m-4 fs-3"><a href="search.html" class="text-white">Search product</a></button>
+                    <button type="button" class="btn m-4 fs-3"><a href="allProds.html" class="text-white">Show me store</a></button>
+                </div>
+                <div class="text-center">
+                    <button type="button" name="logout" id="logout" class="btn logout m-3 fs-5">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="row mx-auto">
         <div class="col-xl-4 mx-auto">
                 <div class=" row d-flex flex-xl-column m-5 text-center">
                     <h1><b>Let's Start....</b></h1>
@@ -61,10 +82,9 @@
                 </div>
                 <div class="text-center">
                     <button type="button" name="logout" id="logout" class="btn logout m-3 fs-5">Logout</button>
-                   
                 </div>
         </div>
-    </div>
+    </div> -->
 
     <script >
         var firebaseConfig = {
