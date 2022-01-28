@@ -11,10 +11,10 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
+let title = document.getElementById("title");
+let price = document.getElementById("price");
+let stock = document.getElementById("stock");
 document.getElementById('add').onclick = function (req,res){
-    let title = document.getElementById("title");
-    let price = document.getElementById("price");
-    let stock = document.getElementById("stock");
     if(title.value == "" || price.value == "" || stock.value == ""){
         alert("You must fill all fields")
         return;
@@ -27,16 +27,33 @@ document.getElementById('add').onclick = function (req,res){
         alert("Stock must be of type integer")
         return;
     }
-    db.collection("products").doc(title.value).set({
-        Title: title.value,
-        Price: price.value,
-        Stock: stock.value
-    }).then(() => alert("Added product Successfully"),  
-    document.getElementById("title").value='', 
-    document.getElementById("price").value='',
-    document.getElementById("stock").value='' ).catch(e => alert(e.message));
+    var docRef = db.collection("products").doc(title.value.toLowerCase());
+    docRef.get().then(function(doc) {
+        if (doc.exists) {
+            alert('Product already exist, please choose different title');
+            title.value='', 
+            price.value='',
+            stock.value='' 
+            return;
+        } else {  // doc.data() will be undefined in this case
+            db.collection("products").doc(title.value.toLowerCase()).set({
+                Title: title.value.toLowerCase(),
+                Price: price.value,
+                Stock: stock.value
+            }).then(() => alert("Added product Successfully"),  
+            title.value='', 
+            price.value='',
+            stock.value='' ).catch(e => alert(e.message));
 
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+        title.value='';
+        price.value='';
+        stock.value='';
+    });
 
 }
+
 
 
