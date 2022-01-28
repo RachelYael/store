@@ -8,9 +8,9 @@ var firebaseConfig = {
     measurementId: "G-Q826CPQ94E"
 };
 firebase.initializeApp(firebaseConfig);
-const db_allProds = firebase.firestore();
+const db = firebase.firestore();
 
-db_allProds.collection("products").get().then((querySnapshot) => {
+db.collection("products").get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
         var data = doc.data();
         console.log(data);

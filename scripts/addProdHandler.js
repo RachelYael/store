@@ -9,12 +9,12 @@ var firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
 
-let title = document.getElementById("title");
-let price = document.getElementById("price");
-let stock = document.getElementById("stock");
 document.getElementById('add').onclick = function (req,res){
+    const db = firebase.firestore();
+    let title = document.getElementById("title");
+    let price = document.getElementById("price");
+    let stock = document.getElementById("stock");
     if(title.value == "" || price.value == "" || stock.value == ""){
         alert("You must fill all fields")
         return;

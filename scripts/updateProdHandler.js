@@ -8,66 +8,65 @@ var firebaseConfig = {
     measurementId: "G-Q826CPQ94E"
 };
 firebase.initializeApp(firebaseConfig);
-const db_update = firebase.firestore();
-
-let title_update = document.getElementById("title");
-let price_update = document.getElementById("price");
-let stock_update = document.getElementById("stock");
 
 document.getElementById('update').onclick = function (req,res){
-    if(title_update.value == ""){
+    const db = firebase.firestore();
+    let title = document.getElementById("title");
+    let price = document.getElementById("price");
+    let stock = document.getElementById("stock");
+    if(title.value == ""){
         alert("You Must Fill Product Name")
         return
     }
-    if(price_update.value == "" && stock_update.value == ""){
+    if(price.value == "" && stock.value == ""){
         alert("No Updates")
         return;
     }
-    if(isNaN(price_update.value) || isNaN(stock_update.value) || parseFloat(price_update.value) <= 0 || parseInt(stock_update.value) < 0){
+    if(isNaN(price.value) || isNaN(stock.value) || parseFloat(price.value) <= 0 || parseInt(stock.value) < 0){
         alert("Price and Stock must be numbers: \nPrice bigger than 0\nStock at least 0")
         return;
     }
-    if(!Number.isInteger(Number(stock_update.value))){
+    if(!Number.isInteger(Number(stock.value))){
         alert("Stock must be of type integer")
         return;
     }
 
 
-    var docRef = db_update.collection("products").doc(title_update.value.toLowerCase());
+    var docRef = db.collection("products").doc(title.value.toLowerCase());
         docRef.get().then(function(doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data());
                 if (confirm(`Are you sure you want to update changes?`)) {
                     docRef.update({
-                        Price: price_update.value,
-                        Stock: stock_update.value
+                        Price: price.value,
+                        Stock: stock.value
                     })
                     .then(() => {
                         alert("Product Updated Successfully!"),
-                            title_update.value='', 
-                            price_update.value='',
-                            stock_update.value=''
+                            title.value='', 
+                            price.value='',
+                            stock.value=''
                     })
                     .catch((error) => {
                         alert("Error Updating ", error);
                     });
                 } else {
                     console.log('Nothing was updated.');
-                    title_update.value='',
-                    price_update.value='',
-                    stock_update.value=''
+                    title.value='',
+                    price.value='',
+                    stock.value=''
                 }
             } else {  // doc.data() will be undefined in this case
-                alert(`No product with title ${title_update.value}!`);
-                title_update.value='',
-                price_update.value='',
-                stock_update.value=''
+                alert(`No product with title ${title.value}!`);
+                title.value='',
+                price.value='',
+                stock.value=''
             }
         }).catch(function(error) {
             console.log("Error getting document:", error);
-            title_update.value='';
-            price_update.value='';
-            stock_update.value='';
+            title.value='';
+            price.value='';
+            stock.value='';
         });
     
 }

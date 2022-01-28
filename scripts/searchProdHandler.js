@@ -8,13 +8,13 @@ var firebaseConfig = {
     measurementId: "G-Q826CPQ94E"
 };
 firebase.initializeApp(firebaseConfig);
-const db_search = firebase.firestore();
 
-let title_search = document.getElementById('title');
 let searchFlag = 0;
 
 document.getElementById('search').onclick = function (req,res){
-    if(title_search.value == ""){
+    const db = firebase.firestore();
+    let title = document.getElementById('title');
+    if(title.value == ""){
         alert("You must enter product name")
         return;
     }
@@ -22,7 +22,7 @@ document.getElementById('search').onclick = function (req,res){
         return;
     }
     searchFlag = 1;
-    var docRef = db_search.collection("products").doc(title_search.value.toLowerCase());
+    var docRef = db.collection("products").doc(title.value.toLowerCase());
     docRef.get().then(function(doc) {
         if (doc.exists) {
             let data = doc.data();
@@ -38,14 +38,14 @@ document.getElementById('search').onclick = function (req,res){
                                             </div>`
                     );
         } else {  // doc.data() will be undefined in this case
-            alert(`No product with title ${title_search.value}!`);
-            title_search.value='';
+            alert(`No product with title ${title.value}!`);
+            title.value='';
             searchFlag = 0;
 
         }
     }).catch(function(error) {
         console.log("Error getting document:", error);
-        title_search.value='';
+        title.value='';
         searchFlag = 0;
     });
 }
@@ -53,6 +53,6 @@ document.getElementById('search').onclick = function (req,res){
 
 document.getElementById('clear').onclick = function (req,res){
     searchFlag = 0;
-    title_search.value='';
+    document.getElementById('title').value='';
     $("#foundProd").remove();
 }

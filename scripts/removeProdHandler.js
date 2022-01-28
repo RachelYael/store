@@ -8,35 +8,34 @@ var firebaseConfig = {
     measurementId: "G-Q826CPQ94E"
 };
 firebase.initializeApp(firebaseConfig);
-const db_remove = firebase.firestore();
-
-let title_remove = document.getElementById("title");
 
 document.getElementById('remove').onclick = function (req,res){
-    if(title_remove.value == ""){
+    const db = firebase.firestore();
+    let title = document.getElementById("title");
+    if(title.value == ""){
         alert("You must enter product name")
         return;
     }
 
-    var docRef = db_remove.collection("products").doc(title_remove.value.toLowerCase());
+    var docRef = db.collection("products").doc(title.value.toLowerCase());
     docRef.get().then(function(doc) {
         if (doc.exists) {
             console.log("Document data:", doc.data());
-            if (confirm(`Are you sure you want to delete *${title_remove.value}* product?`)) {
-                db_remove.collection("products").doc(title_remove.value.toLowerCase()).delete()
-                .then(() => alert("Product deleted Successfully"), title_remove.value='')
+            if (confirm(`Are you sure you want to delete *${title.value}* product?`)) {
+                db.collection("products").doc(title.value.toLowerCase()).delete()
+                .then(() => alert("Product deleted Successfully"), title.value='')
                 .catch(e => alert(e.message));
             } else {
                 console.log('Nothing was deleted.');
-                title_remove.value='';
+                title.value='';
             }
         } else {  // doc.data() will be undefined in this case
-            alert(`No product with title ${title_remove.value}!`);
-            title_remove.value='';
+            alert(`No product with title ${title.value}!`);
+            title.value='';
         }
     }).catch(function(error) {
         console.log("Error getting document:", error);
-        title_remove.value='';
+        title.value='';
     });
 
 }
