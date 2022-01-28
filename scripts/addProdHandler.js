@@ -31,8 +31,7 @@ document.getElementById('add').onclick = function (req,res){
         Title: title.value,
         Price: price.value,
         Stock: stock.value
-    }).then(() => alert("Added product Successfully"),()=>  
-    document.getElementById("title").value='',
+    }).then(() => alert("Added product Successfully"),  
     document.getElementById("title").value='', 
     document.getElementById("price").value='',
     document.getElementById("stock").value='' ).catch(e => alert(e.message));
