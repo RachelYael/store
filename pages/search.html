@@ -94,10 +94,9 @@
         var docRef = db.collection("products").doc(title.value);
         docRef.get().then(function(doc) {
             if (doc.exists) {
+                console.log("hello");
                 let data = doc.data();
-                (($) => {
-                $(document).ready(function () {
-                    const prods = $('#found');
+                const prods = $('#found');
                         prods.append(`<div class="card m-4" id="foundProd" style="width: 18rem;">
                                                     <div class="card-body">
                                                         <h5 class="card-header text-center">${data.Title}</h5>
@@ -108,20 +107,18 @@
                                                     </div>
                                                 </div>`
                         );
-
-                
-                });
-            })(jQuery);
             } else {  // doc.data() will be undefined in this case
                 alert(`No product with title ${title.value}!`);
                 document.getElementById("title").value='';
+                searchFlag = 0;
+
             }
         }).catch(function(error) {
             console.log("Error getting document:", error);
+            searchFlag = 0;
         });
-        
-
     }
+    
 
     document.getElementById('clear').onclick = function (req,res){
         searchFlag = 0;
