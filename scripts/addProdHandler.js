@@ -9,8 +9,15 @@ var firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+const auth_add = firebase.auth();
+auth_add.onAuthStateChanged((e) => {
+    if(!auth_add.currentUser){
+        console.log('not user');
+        window.location.assign('../index.html');
+    }
+}); 
 
-document.getElementById('add').onclick = function (req,res){
+document.getElementById('add').onclick = function (e){
     const db = firebase.firestore();
     let title = document.getElementById("title");
     let price = document.getElementById("price");

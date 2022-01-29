@@ -10,6 +10,14 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
+const auth_allProds = firebase.auth();
+auth_allProds.onAuthStateChanged((e) => {
+    if(!auth_allProds.currentUser){
+        console.log('not user');
+        window.location.assign('../index.html');
+    }
+});
+
 db.collection("products").get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
         var data = doc.data();

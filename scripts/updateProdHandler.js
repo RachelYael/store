@@ -8,6 +8,13 @@ var firebaseConfig = {
     measurementId: "G-Q826CPQ94E"
 };
 firebase.initializeApp(firebaseConfig);
+const auth_update = firebase.auth();
+auth_update.onAuthStateChanged((e) => {
+    if(!auth_update.currentUser){
+        console.log('not user');
+        window.location.assign('../index.html');
+    }
+});
 
 document.getElementById('update').onclick = function (req,res){
     const db = firebase.firestore();

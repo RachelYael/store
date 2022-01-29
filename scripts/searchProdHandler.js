@@ -9,6 +9,13 @@ var firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
+const auth_search = firebase.auth();
+auth_search.onAuthStateChanged((e) => {
+    if(!auth_search.currentUser){
+        console.log('not user');
+        window.location.assign('../index.html');
+    }
+});
 let searchFlag = 0;
 
 document.getElementById('search').onclick = function (req,res){

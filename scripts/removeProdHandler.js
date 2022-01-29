@@ -8,6 +8,13 @@ var firebaseConfig = {
     measurementId: "G-Q826CPQ94E"
 };
 firebase.initializeApp(firebaseConfig);
+const auth_remove = firebase.auth();
+auth_remove.onAuthStateChanged((e) => {
+    if(!auth_remove.currentUser){
+        console.log('not user');
+        window.location.assign('../index.html');
+    }
+});
 
 document.getElementById('remove').onclick = function (req,res){
     const db = firebase.firestore();
