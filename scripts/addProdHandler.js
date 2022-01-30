@@ -26,6 +26,11 @@ document.getElementById('add').onclick = function (e){
         alert("You must fill all fields")
         return;
     }
+    var regex = /^[A-Za-z]|[A-Za-z][A-Za-z\s]*[A-Za-z]$/;
+    if (!regex.test(title.value)){
+        alert("Invalid title")
+        return;
+    }
     if(isNaN(price.value) || isNaN(stock.value) || parseFloat(price.value) <= 0 || parseInt(stock.value) < 0){
         alert("Price and Stock must be numbers: \nPrice bigger than 0\nStock at least 0")
         return;
