@@ -34,7 +34,7 @@ document.getElementById('search').onclick = function (req,res){
         if (doc.exists) {
             let data = doc.data();
             const prods = $('#found');
-                    prods.append(`<div class="card m-4" id="foundProd" style="width: 18rem;">
+                    prods.append(`<div class="card m-4" id="foundProd"">
                                                 <div class="card-body">
                                                     <h5 class="card-header text-center">${data.Title}</h5>
                                                     <ul class="list-group list-group-flush">
