@@ -17,7 +17,7 @@ auth_add.onAuthStateChanged((e) => {
     }
 }); 
 
-document.getElementById('add').onclick = function (e){
+document.getElementById('add').onclick = async function (e){
     const db = firebase.firestore();
     let title = document.getElementById("title");
     let price = document.getElementById("price");
@@ -39,24 +39,36 @@ document.getElementById('add').onclick = function (e){
         alert("Stock must be of type integer")
         return;
     }
+
     var docRef = db.collection("products").doc(title.value.toLowerCase());
-    docRef.get().then(function(doc) {
-        if (doc.exists) {
+    await docRef.get().then(async function(doc) {
+        if (doc.exists) { // product already exists
             alert('Product already exist, please choose different title');
             title.value='', 
             price.value='',
             stock.value='' 
             return;
-        } else {  // doc.data() will be undefined in this case
-            db.collection("products").doc(title.value.toLowerCase()).set({
+        } else {  // new product
+            await db.collection("products").doc(title.value.toLowerCase()).set({
                 Title: title.value.toLowerCase(),
                 Price: price.value,
                 Stock: stock.value
-            }).then(() => alert("Added product Successfully"),  
-            title.value='', 
-            price.value='',
-            stock.value='' ).catch(e => alert(e.message));
-
+            });
+            // add product to user's products
+            let userID = auth_add.currentUser.uid;
+            var userDocRef = db.collection("users").doc(userID);
+            await userDocRef.get().then( async function(doc) {
+                if (doc.exists) {
+                    await userDocRef.update({"products": firebase.firestore.FieldValue.arrayUnion(title.value.toLowerCase())})
+                } else {  // doc.data() will be undefined in this case
+                    await userDocRef.set({"products": firebase.firestore.FieldValue.arrayUnion(title.value.toLowerCase())});
+                }
+            }, alert("Added product Successfully")).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+            title.value='';
+            price.value='';
+            stock.value='';
         }
     }).catch(function(error) {
         console.log("Error getting document:", error);

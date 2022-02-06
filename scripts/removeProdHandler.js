@@ -16,7 +16,7 @@ auth_remove.onAuthStateChanged((e) => {
     }
 });
 
-document.getElementById('remove').onclick = function (req,res){
+document.getElementById('remove').onclick = async function (req,res){
     const db = firebase.firestore();
     let title = document.getElementById("title");
     if(title.value == ""){
@@ -25,14 +25,23 @@ document.getElementById('remove').onclick = function (req,res){
     }
 
     var docRef = db.collection("products").doc(title.value.toLowerCase());
-    docRef.get().then(function(doc) {
-        if (doc.exists) {
+    await docRef.get().then(async function(doc) {
+        if (doc.exists) { // product exists
             console.log("Document data:", doc.data());
-            if (confirm(`Are you sure you want to delete *${title.value}* product?`)) {
-                db.collection("products").doc(title.value.toLowerCase()).delete()
-                .then(() => alert("Product deleted Successfully"), title.value='')
-                .catch(e => alert(e.message));
-            } else {
+            let userID = auth_remove.currentUser.uid;
+            var userDocRef = db.collection("users").doc(userID);
+            const userData = await userDocRef.get();
+            let isOwner = userData.data().products.includes(title.value.toLowerCase());
+            if(isOwner){
+                if (confirm(`Are you sure you want to delete *${title.value}* product?`)){
+                    await userDocRef.update({"products": firebase.firestore.FieldValue.arrayRemove(title.value.toLowerCase())})
+                    await docRef.delete();
+                    alert("Product deleted Successfully");
+                    title.value='';
+                }
+            }
+            else {
+                alert(`You are not the owner of *${title.value}* product`);
                 console.log('Nothing was deleted.');
                 title.value='';
             }

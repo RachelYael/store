@@ -16,7 +16,7 @@ auth_update.onAuthStateChanged((e) => {
     }
 });
 
-document.getElementById('update').onclick = function (req,res){
+document.getElementById('update').onclick = async function (req,res){
     const db = firebase.firestore();
     let title = document.getElementById("title");
     let price = document.getElementById("price");
@@ -40,25 +40,37 @@ document.getElementById('update').onclick = function (req,res){
 
 
     var docRef = db.collection("products").doc(title.value.toLowerCase());
-        docRef.get().then(function(doc) {
+        await docRef.get().then(async function(doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data());
-                if (confirm(`Are you sure you want to update changes?`)) {
-                    docRef.update({
-                        Price: price.value,
-                        Stock: stock.value
-                    })
-                    .then(() => {
+                let userID = auth_update.currentUser.uid;
+                var userDocRef = db.collection("users").doc(userID);
+                const userData = await userDocRef.get();
+                let isOwner = userData.data().products.includes(title.value.toLowerCase());
+                if(isOwner){
+                    if (confirm(`Are you sure you want to update changes?`)){
+                        let _price = price.value === ""? doc.data().Price : price.value;
+                        let _stock = stock.value === ""? doc.data().Stock : stock.value;
+                        await docRef.update({
+                            Price: _price,
+                            Stock: _stock
+                        }).catch((error) => {
+                            alert("Error Updating ", error);
+                        });
+
                         alert("Product Updated Successfully!"),
                             title.value='', 
                             price.value='',
                             stock.value=''
-                    })
-                    .catch((error) => {
-                        alert("Error Updating ", error);
-                    });
+
+                    }else {
+                        console.log('Nothing was updated.');
+                        title.value='',
+                        price.value='',
+                        stock.value=''
+                    }  
                 } else {
-                    console.log('Nothing was updated.');
+                    alert(`You are not the owner of *${title.value}* product`);
                     title.value='',
                     price.value='',
                     stock.value=''
